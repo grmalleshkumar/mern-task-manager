@@ -6,6 +6,7 @@ import TaskItem from "../components/TaskItem";
 const TaskPage = () => {
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
+  const [filter, setFilter] = useState("all");
   const { tasks, loading } = useSelector((state) => state.tasks);
 
   useEffect(() => {
@@ -19,9 +20,16 @@ const TaskPage = () => {
     setTitle("");
   };
 
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "completed") return task.completed;
+    if (filter === "pending") return !task.completed;
+    return true;
+  });
+
   return (
     <div className="task-container">
       <h1>Task Manager</h1>
+
       <form onSubmit={handleSubmit}>
         <input
           placeholder="Add new task"
@@ -30,10 +38,16 @@ const TaskPage = () => {
         />
         <button type="submit">Add</button>
       </form>
+      {/* 🆕 Filter Buttons */}
+      <div className="filter-buttons" style={{ marginBottom: "20px" }}>
+        <button onClick={() => setFilter("all")}>All</button>
+        <button onClick={() => setFilter("completed")}>Completed</button>
+        <button onClick={() => setFilter("pending")}>Pending</button>
+      </div>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        tasks.map((task) => <TaskItem key={task._id} task={task} />)
+        filteredTasks.map((task) => <TaskItem key={task._id} task={task} />)
       )}
     </div>
   );
