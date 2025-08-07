@@ -1,11 +1,11 @@
 /* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 body {
@@ -17,14 +17,55 @@ body {
   padding-top: 50px;
 }
 
-/* Container */
+/* Main app container wraps navbar + task page */
+.app-container {
+  max-width: 900px;  /* increased width */
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Navbar styles */
+nav {
+  max-width: 900px;  /* match app container */
+  width: 100%;
+  margin: 0 auto 20px auto;
+  padding: 15px 25px;
+  background-color: #0d6efd; /* bootstrap primary blue */
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+/* Logout button inside navbar */
+nav .logout-btn {
+  background-color: #e53e3e;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+nav .logout-btn:hover {
+  background-color: #b83232;
+}
+
+/* Task container */
 .task-container {
   background-color: #ffffff;
   padding: 30px 40px;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   width: 100%;
-  max-width: 500px;
+  max-width: 900px;  /* increased width */
+  margin: 0 auto;
 }
 
 /* Header */
@@ -78,7 +119,7 @@ form button:hover {
   margin-bottom: 10px;
 }
 
-.task-item input[type='checkbox'] {
+.task-item input[type="checkbox"] {
   transform: scale(1.2);
   margin-right: 10px;
 }
@@ -104,14 +145,14 @@ form button:hover {
   background-color: rgba(229, 62, 62, 0.1);
 }
 
-
 .filter-buttons {
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-bottom: 20px; /* moved from inline to CSS */
 }
 
-.filter-buttons button {
+.filter-btn {
   padding: 8px 14px;
   background-color: #e2e8f0;
   border: none;
@@ -121,6 +162,82 @@ form button:hover {
   transition: 0.2s;
 }
 
-.filter-buttons button:hover {
+.filter-btn:hover {
   background-color: #cbd5e0;
+}
+
+.filter-btn.active {
+  background-color: #0d6efd; /* Bootstrap primary blue */
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(13, 110, 253, 0.5);
+}
+
+/* Authentication containers */
+.auth-container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.auth-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-container input {
+  margin-bottom: 15px;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.auth-container button {
+  background-color: #1a73e8;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+
+
+nav {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto 20px auto;
+  padding: 15px 25px;
+  background-color: #0d6efd;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+nav .logout-btn {
+  background-color: #e53e3e;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+nav .logout-btn:hover {
+  background-color: #b83232;
 }

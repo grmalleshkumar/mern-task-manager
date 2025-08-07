@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import taskService from './TaskService';
+import taskService from './taskService';
 
 const initialState = {
   tasks: [],
@@ -10,7 +10,8 @@ const initialState = {
 // Get all tasks
 export const fetchTasks = createAsyncThunk('tasks/fetchAll', async (_, thunkAPI) => {
   try {
-    return await taskService.getTasks();
+    const token = thunkAPI.getState().auth.user?.token;
+    return await taskService.getTasks(token);
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }
@@ -19,7 +20,8 @@ export const fetchTasks = createAsyncThunk('tasks/fetchAll', async (_, thunkAPI)
 // Add task
 export const addTask = createAsyncThunk('tasks/add', async (data, thunkAPI) => {
   try {
-    return await taskService.addTask(data);
+    const token = thunkAPI.getState().auth.user?.token;
+    return await taskService.addTask(data, token);
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }
@@ -28,7 +30,8 @@ export const addTask = createAsyncThunk('tasks/add', async (data, thunkAPI) => {
 // Update task
 export const updateTask = createAsyncThunk('tasks/update', async ({ id, data }, thunkAPI) => {
   try {
-    return await taskService.updateTask(id, data);
+    const token = thunkAPI.getState().auth.user?.token;
+    return await taskService.updateTask(id, data, token);
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }
@@ -37,7 +40,8 @@ export const updateTask = createAsyncThunk('tasks/update', async ({ id, data }, 
 // Delete task
 export const deleteTask = createAsyncThunk('tasks/delete', async (id, thunkAPI) => {
   try {
-    await taskService.deleteTask(id);
+    const token = thunkAPI.getState().auth.user?.token;
+    await taskService.deleteTask(id, token);
     return id;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
@@ -50,7 +54,7 @@ const taskSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(fetchTasks.pending, state => {
+      .addCase(fetchTasks.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchTasks.fulfilled, (state, action) => {
@@ -66,7 +70,9 @@ const taskSlice = createSlice({
       })
       .addCase(updateTask.fulfilled, (state, action) => {
         const index = state.tasks.findIndex(task => task._id === action.payload._id);
-        state.tasks[index] = action.payload;
+        if (index !== -1) {
+          state.tasks[index] = action.payload;
+        }
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter(task => task._id !== action.payload);

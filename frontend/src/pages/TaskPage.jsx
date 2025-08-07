@@ -7,6 +7,7 @@ const TaskPage = () => {
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
   const [filter, setFilter] = useState("all");
+
   const { tasks, loading } = useSelector((state) => state.tasks);
 
   useEffect(() => {
@@ -39,11 +40,29 @@ const TaskPage = () => {
         <button type="submit">Add</button>
       </form>
       {/* 🆕 Filter Buttons */}
-      <div className="filter-buttons" style={{ marginBottom: "20px" }}>
-        <button onClick={() => setFilter("all")}>All</button>
-        <button onClick={() => setFilter("completed")}>Completed</button>
-        <button onClick={() => setFilter("pending")}>Pending</button>
+      <div className="filter-buttons">
+        <button
+          onClick={() => setFilter("all")}
+          className={filter === "all" ? "filter-btn active" : "filter-btn"}
+        >
+          All
+        </button>
+        <button
+          onClick={() => setFilter("completed")}
+          className={
+            filter === "completed" ? "filter-btn active" : "filter-btn"
+          }
+        >
+          Completed
+        </button>
+        <button
+          onClick={() => setFilter("pending")}
+          className={filter === "pending" ? "filter-btn active" : "filter-btn"}
+        >
+          Pending
+        </button>
       </div>
+
       {loading ? (
         <p>Loading...</p>
       ) : (
