@@ -1,0 +1,14 @@
+# Node.js
+node_modules/
+.env
+
+# Vite / React
+frontend/dist/
+frontend/node_modules/
+frontend/.env
+
+# VSCode
+.vscode/
+
+# Log files
+*.log
